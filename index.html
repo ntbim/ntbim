@@ -1,1 +1,299 @@
-placeholder
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTBIM | Lightweight Tools for Autodesk Revit</title>
+    <style>
+        :root {
+            --bg-base: #0f141c;
+            --bg-card: rgba(23, 31, 44, 0.7);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(245, 166, 35, 0.4);
+            --accent-gold: #f5a623;
+            --accent-blue: #3b82f6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-image: 
+                radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.12), transparent 50%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px, 32px 32px;
+            padding: 48px 24px;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Yläosa ja Logo */
+        header {
+            margin-bottom: 48px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-placeholder {
+            width: 68px;
+            height: 68px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-placeholder::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), transparent);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: var(--text-primary);
+            stroke-width: 2;
+        }
+
+        .brand-meta h1 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .brand-meta p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 3px;
+        }
+
+        /* Osiot */
+        section {
+            margin-bottom: 40px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        /* Tuotekortti */
+        .plugin-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .plugin-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.4);
+        }
+
+        .plugin-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .plugin-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(245, 166, 35, 0.12);
+            border: 1px solid rgba(245, 166, 35, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 20px;
+        }
+
+        .plugin-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .plugin-info p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .arrow-icon {
+            color: var(--text-muted);
+            font-size: 20px;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .plugin-card:hover .arrow-icon {
+            color: var(--accent-gold);
+            transform: translateX(4px);
+        }
+
+        /* Yhteystiedot */
+        .contact-box {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .contact-email {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .contact-email:hover {
+            color: var(--text-primary);
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            padding-top: 32px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Brändi / Header -->
+        <header>
+            <div class="logo-placeholder" title="NTBIM Logo Placeholder">
+                <svg class="logo-icon" viewBox="0 0 24 24">
+                    <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 22V12" stroke-linecap="round"/>
+                    <path d="M21 7l-9 5-9-5" stroke-linecap="round"/>
+                    <circle cx="12" cy="12" r="2" fill="#f5a623" stroke="none"/>
+                </svg>
+            </div>
+            <div class="brand-meta">
+                <h1>NTBIM</h1>
+                <p>Lightweight, purpose-built add-ins for Autodesk Revit.</p>
+            </div>
+        </header>
+
+        <!-- Lisäosat -->
+        <section>
+            <div class="section-label">Add-ins & Tools</div>
+            
+            <a href="https://ntbim.github.io/favouritespanel/" class="plugin-card" target="_blank" rel="noopener">
+                <div class="plugin-left">
+                    <div class="plugin-badge">★</div>
+                    <div class="plugin-info">
+                        <h3>Favourites Panel</h3>
+                        <p>Quick dockable panel to save and organize views, families, and types in Revit.</p>
+                    </div>
+                </div>
+                <div class="arrow-icon">→</div>
+            </a>
+        </section>
+
+        <!-- Yhteydenotto -->
+        <section>
+            <div class="section-label">Contact</div>
+            <div class="contact-box">
+                <a href="mailto:ntbim@proton.me" class="contact-email">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <path d="m22 7-10 7L2 7"/>
+                    </svg>
+                    ntbim@proton.me
+                </a>
+                <button class="copy-btn" onclick="copyEmail()">Copy email</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Alatunniste -->
+    <footer>
+        &copy; 2026 NTBIM. Autodesk and Revit are registered trademarks of Autodesk, Inc.
+    </footer>
+
+    <script>
+        function copyEmail() {
+            navigator.clipboard.writeText('ntbim@proton.me');
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => {
+                btn.textContent = 'Copy email';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
